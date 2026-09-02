@@ -39,3 +39,10 @@ Before building the WinPE image, ensure your host environment has:
 ```powershell
 git clone [https://github.com/bytemateria/winstream.git](https://github.com/bytemateria/winstream.git)
 cd winstream
+```
+
+### 2. Install Windows ADK.
+```powershell
+Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/?linkid=2289980' -OutFile C:\adksetup.exe
+Start-Process -FilePath C:\adksetup.exe -ArgumentList '/quiet', '/installpath', 'C:\ADK', '/features', 'OptionId.DeploymentTools', 'OptionId.ImagingAndConfigurationDesigner' -Wait -PassThru | Out-Null
+```
