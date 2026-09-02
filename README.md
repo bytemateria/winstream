@@ -47,7 +47,13 @@ Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/?linkid=2289980' -OutFil
 Start-Process -FilePath C:\adksetup.exe -ArgumentList '/quiet', '/installpath', 'C:\ADK', '/features', 'OptionId.DeploymentTools', 'OptionId.ImagingAndConfigurationDesigner' -Wait -PassThru | Out-Null
 ```
 
-### 3. Build Base Windows PE iso.
+### 3. Install Wimlib.
+```powershell
+Invoke-WebRequest -Uri 'https://wimlib.net/downloads/wimlib-1.14.4-windows-x86_64-bin.zip' -OutFile C:\wimlib.zip
+Expand-Archive -Path "$env:CI_PROJECT_DIR\src\wimlib-1.14.4-windows-x86_64-bin.zip" -DestinationPath C:\wimlib -Force
+```
+
+### 4. Build Base Windows PE iso.
 ```powershell
 .\scripts\Build-WinPEBase.ps1 -OutputZipPath ".\output\win-pe.zip"
 ```
