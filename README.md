@@ -46,3 +46,8 @@ cd winstream
 Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/?linkid=2289980' -OutFile C:\adksetup.exe
 Start-Process -FilePath C:\adksetup.exe -ArgumentList '/quiet', '/installpath', 'C:\ADK', '/features', 'OptionId.DeploymentTools', 'OptionId.ImagingAndConfigurationDesigner' -Wait -PassThru | Out-Null
 ```
+
+### 3. Build Base Windows PE iso.
+```powershell
+.\scripts\Build-WinPEBase.ps1 -OutputZipPath ".\output\win-pe.zip"
+```
