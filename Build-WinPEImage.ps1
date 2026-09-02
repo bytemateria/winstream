@@ -122,7 +122,7 @@ if ([string]::IsNullOrWhiteSpace($InitTemplatePath)) {
     if (-not $ScriptDir) {
         throw "Could not determine this script's directory automatically. Pass -InitTemplatePath explicitly."
     }
-    $InitTemplatePath = Join-Path $ScriptDir "init.download-install.template.ps1"
+    $InitTemplatePath = Join-Path $ScriptDir "\src\init.download-install.template.ps1"
 }
 
 #endregion
