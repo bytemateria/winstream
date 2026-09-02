@@ -15,7 +15,7 @@ An automated utility for building a lightweight Windows Preinstallation Environm
 ### Key Features
 
 * **Network-First Deployment:** Downloads Windows payloads on-demand via HTTP/HTTPS, SMB, or custom network shares.
-* **Lightweight Boot Media:** Minimal WinPE footprint fits on small USB drives or network boot servers.
+* **Lightweight Boot Media:** Minimal WinPE footprint fits on small USB drives, network boot servers or using limited bandwidth solutions like Intel Active Management Technology (AMT) USB-R through Intel Endpoint Management Assistant (EMA).
 * **Automated Disk Formatting:** Includes PowerShell scripts to handle GPT/MBR partition layouts automatically.
 * **DISM-Based Extraction:** Applies OS images directly using native Windows Deployment Image Servicing and Management tools.
 * **Customizable Payloads:** Easily configure source URLs, target OS editions, and unattend answer files (`unattend.xml`).
@@ -43,17 +43,22 @@ cd winstream
 
 ### 2. Install Windows ADK.
 ```powershell
-Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/?linkid=2289980' -OutFile C:\adksetup.exe
-Start-Process -FilePath C:\adksetup.exe -ArgumentList '/quiet', '/installpath', 'C:\ADK', '/features', 'OptionId.DeploymentTools', 'OptionId.ImagingAndConfigurationDesigner' -Wait -PassThru | Out-Null
+Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/?linkid=2289980' -OutFile .\downloads\adksetup.exe
+Start-Process -FilePath .\downloads\adksetup.exe -ArgumentList '/quiet', '/installpath', 'C:\ADK', '/features', 'OptionId.DeploymentTools', 'OptionId.ImagingAndConfigurationDesigner' -Wait -PassThru | Out-Null
 ```
 
 ### 3. Install Wimlib.
 ```powershell
-Invoke-WebRequest -Uri 'https://wimlib.net/downloads/wimlib-1.14.4-windows-x86_64-bin.zip' -OutFile C:\wimlib.zip
-Expand-Archive -Path "$env:CI_PROJECT_DIR\src\wimlib-1.14.4-windows-x86_64-bin.zip" -DestinationPath C:\wimlib -Force
+Invoke-WebRequest -Uri 'https://wimlib.net/downloads/wimlib-1.14.4-windows-x86_64-bin.zip' -OutFile .\downloads\wimlib.zip
+Expand-Archive -Path ".\downloads\wimlib.zip" -DestinationPath .\src\wimlib -Force
 ```
 
-### 4. Build Base Windows PE iso.
+### 4. Build Base Windows PE zip contents.
 ```powershell
 .\scripts\Build-WinPEBase.ps1 -OutputZipPath ".\output\win-pe.zip"
+```
+
+### 5. Build Base Windows PE iso.
+```powershell
+.\Build-WinPEImage.ps1" -OutputIsoPath ".\output\winpe.iso" -BaseMediaUrl ".\output\win-pe.zip" -WindowsIsoUrl "<WIN_IMAGE_URL>" -ImageIndex 5 -UnattendXmlUrl "<WIN_UNATTENDED_XML>" -BackgroundImagePath "<BACKGROUND_IMAGE_PATH>" -WimlibImagexPath ".\src\wimlib\wimlib-imagex.exe" -VolumeLabel "WINPE-WIN11"
 ```
