@@ -59,7 +59,7 @@ Expand-Archive -Path ".\downloads\wimlib.zip" -DestinationPath .\src\wimlib -For
 .\scripts\Build-WinPEBase.ps1 -OutputZipPath ".\output\win-pe.zip"
 ```
 
-### 5. Build Base Windows PE iso.
+### 5. Build Windows PE Image iso.
 ```powershell
 .\Build-WinPEImage.ps1" -OutputIsoPath ".\output\winpe.iso" -BaseMediaUrl ".\output\win-pe.zip" -WindowsIsoUrl "<WIN_IMAGE_URL>" -ImageIndex 5 -UnattendXmlUrl "<WIN_UNATTENDED_XML>" -BackgroundImagePath "<BACKGROUND_IMAGE_PATH>" -WimlibImagexPath ".\src\wimlib\wimlib-imagex.exe" -VolumeLabel "WINPE-WIN11"
 ```
