@@ -37,7 +37,7 @@ Before building the WinPE image, ensure your host environment has:
 
 ### 1. Clone the Repository
 ```powershell
-git clone [https://github.com/bytemateria/winstream.git](https://github.com/bytemateria/winstream.git)
+git clone https://github.com/bytemateria/winstream.git
 cd winstream
 ```
 
