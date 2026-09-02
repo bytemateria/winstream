@@ -19,6 +19,7 @@ An automated utility for building a lightweight Windows Preinstallation Environm
 * **Automated Disk Formatting:** Includes PowerShell scripts to handle GPT/MBR partition layouts automatically.
 * **DISM-Based Extraction:** Applies OS images directly using native Windows Deployment Image Servicing and Management tools.
 * **Customizable Payloads:** Easily configure source URLs, target OS editions, and unattend answer files (`unattend.xml`).
+* **Container Ready:** Supports a CI/CD pipeline based on Windows Containers to automate iso creations with different configurations.
 
 ---
 
